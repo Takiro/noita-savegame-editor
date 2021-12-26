@@ -16,8 +16,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._savegame = None
         self._connect_signals()
         self._current_save_file_path = ""
-        # TODO: Check where the savegame is on Linux
-        self._search_path = path.abspath(path.expandvars("%appdata%/../LocalLow/Nolla_Games_Noita/save00/"))
+        platform_ = platform.system()
+        if platform_ == "Windows":
+            self._search_path = path.abspath(path.expandvars("%appdata%/../LocalLow/Nolla_Games_Noita/save00/"))
+        elif platform_ == "Linux":
+            self._search_path = path.expanduser("~/.local/share/Steam/steamapps/compatdata/881100/pfx/drive_c/users/"
+                                                "steamuser/AppData/LocalLow/Nolla_Games_Noita/save00/")
+        else:
+            self._search_path = path.expanduser("~")
 
     def _connect_signals(self):
         self.action_quick_load.triggered.connect(self._quick_load_savegame)
@@ -147,12 +153,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         source.setText("on" if state else "off")
 
     def _open_file(self):
-        search_path = path.expanduser("~")
-        if platform.system() == "Windows":
-            if path.exists(self._search_path):
-                search_path = self._search_path
-
-        file_path = QFileDialog.getOpenFileName(self, "Open savegame", search_path, "XML(*.xml)")
+        file_path = QFileDialog.getOpenFileName(self, "Open savegame", path.join(self._search_path, 'player.xml'), "XML(*.xml)")
         if file_path[0]:
             self._load_savegame(file_path[0])
 
@@ -161,7 +162,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             file_path = path.join(self._search_path, 'player.xml')
             self._load_savegame(file_path)
         except FileNotFoundError:
-            pass
+            self._open_file()
 
     def _load_savegame(self, file_path):
 
