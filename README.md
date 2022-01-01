@@ -46,10 +46,15 @@ Adding arbitrary spells to the inventory or to wands will probably never be impl
 Editing other items like potions is not implemented and was never planed to be implemented. However the export/import function do export/import them too, even though it's not sown in the UI.
 
 
-# Installation
+# Installation and running
+For Windows 10 and 11 (probably works on older windows too) there is an executable you can download from the [release page](https://github.com/Takiro/noita-savegame-editor/releases). It should run without any aditionall steps.
 
+Alternatively you can install it manually with the following steps:  
 - Have Python 3.8 or newer installed. If you are on Linux or some Macs, you probably already have it.
-- install the dependencies with `pip install -r requirements.txt` from the command line. This installs qt5 (needed for the GUI) and defusedxml (a safe xml parser library)
+- install the dependencies with `pip install -r requirements.txt` from the command line while in the directory you downloaded the sources to. This installs qt5 (needed for the GUI) and defusedxml (a safe xml parser library)
 - run `python main.py` with python from a terminal or by double clicking it (depends a bit on your operating system)
 
-This application should work on Windows, Linux and Mac, but I currently only tested it on Windows.
+This application was tested on Windows and Linux but should also run on Mac if manually installed.
+
+# Caution
+Keep in mind that you should back up your savegames in case something goes wrong. These kind of tools can always break something unexpectedly.
