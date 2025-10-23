@@ -35,7 +35,7 @@ class Card:
 
     @property
     def permanently_attached(self):
-        """On wands cards (spells) can be permanently attached. They consume not slot and are always cast on use."""
+        """On wands cards (spells) can be permanently attached. They consume no slot and are always cast on use."""
         return _str_to_bool(self._card_item_component.get("permanently_attached"))
 
     @permanently_attached.setter

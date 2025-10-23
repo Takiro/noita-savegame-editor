@@ -202,7 +202,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.wand_1_reload_time_edit.setValue(wand_1.reload_time)
 
             for spell in wand_1.cards:
-                self.wand_1_inventory_list.addItem(spell.get_action_id())
+                if spell.uses_remaining > -1:
+                    self.wand_1_inventory_list.addItem(f"{spell.get_action_id()} [{spell.uses_remaining}]")
+                else:
+                    self.wand_1_inventory_list.addItem(spell.get_action_id())
         except IndexError:
             self.wand_1_group_box.setTitle("Empty Slot")
 
@@ -219,7 +222,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.wand_2_reload_time_edit.setValue(wand_2.reload_time)
 
             for spell in wand_2.cards:
-                self.wand_2_inventory_list.addItem(spell.get_action_id())
+                if spell.uses_remaining > -1:
+                    self.wand_2_inventory_list.addItem(f"{spell.get_action_id()} [{spell.uses_remaining}]")
+                else:
+                    self.wand_2_inventory_list.addItem(spell.get_action_id())
         except IndexError:
             self.wand_2_group_box.setTitle("Empty Slot")
 
@@ -236,7 +242,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.wand_3_reload_time_edit.setValue(wand_3.reload_time)
 
             for spell in wand_3.cards:
-                self.wand_3_inventory_list.addItem(spell.get_action_id())
+                if spell.uses_remaining > -1:
+                    self.wand_3_inventory_list.addItem(f"{spell.get_action_id()} [{spell.uses_remaining}]")
+                else:
+                    self.wand_3_inventory_list.addItem(spell.get_action_id())
         except IndexError:
             self.wand_3_group_box.setTitle("Empty Slot")
 
@@ -253,12 +262,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.wand_4_reload_time_edit.setValue(wand_4.reload_time)
 
             for spell in wand_4.cards:
-                self.wand_4_inventory_list.addItem(spell.get_action_id())
+                if spell.uses_remaining > -1:
+                    self.wand_4_inventory_list.addItem(f"{spell.get_action_id()} [{spell.uses_remaining}]")
+                else:
+                    self.wand_4_inventory_list.addItem(spell.get_action_id())
         except IndexError:
             self.wand_4_group_box.setTitle("Empty Slot")
 
         for card in self.savegame.inventory:
-            self.inventory_list.addItem(card.get_action_id())
+            if card.uses_remaining > -1:
+                self.inventory_list.addItem(f"{card.get_action_id()} [{card.uses_remaining}]")
+            else:
+                self.inventory_list.addItem(card.get_action_id())
 
 
 if __name__ == '__main__':
