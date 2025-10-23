@@ -73,6 +73,14 @@ class Wand:
         self._abilities = self._wand.find("AbilityComponent")
         self._gun_config = self._abilities.find("gun_config")
         self._gun_action_config = self._abilities.find("gunaction_config")
+
+        # this prevents the Wands to be stuck in cooldown after importing an old savegame
+        # because the games saves the frame count to determine when it can fire again
+        self._abilities.set("mCastDelayStartFrame", "0")
+        self._abilities.set("mNextFrameUsable", "0")
+        self._abilities.set("mReloadFramesLeft", "0")
+        self._abilities.set("mReloadNextFrameUsable", "0")
+
         self.cards = []
 
         cards = self._wand.findall("Entity[@tags='card_action']")
@@ -160,7 +168,7 @@ class Wand:
 
     @spread_degrees.setter
     def spread_degrees(self, degrees):
-        # I assume 180 is max, I never tested was the maximum is but with a
+        # I assume 180 is max, I never tested what the maximum is but with a
         # spread higher than that, actually hitting something can be impossible.
         # 180° is already insane.
         degrees = cap(degrees, 0, 180)
